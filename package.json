@@ -45,9 +45,8 @@
       "pages/**/*",
       "img/**/*",
       "sounds/**/*",
-      "package.json",
-      "!pages/window-controls.js",
-      "!pages/window-controls.css"
+      "celeste.png",
+      "package.json"
     ]
   }
 }
