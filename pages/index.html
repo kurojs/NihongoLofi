@@ -69,13 +69,12 @@
         </div>
     </header>
     
-    <iframe class="lofi-vid" width="397" height="226" 
-        src="https://www.youtube-nocookie.com/embed/d6f46ZUzJig?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&enablejsapi=1&origin=https://electron.app"
-        title="YouTube video player" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen
-        sandbox="allow-scripts allow-same-origin allow-presentation">
-    </iframe>
+    <webview 
+        class="lofi-vid" 
+        src="https://www.youtube.com/embed/d6f46ZUzJig?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0"
+        allowpopups
+        useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36">
+    </webview>
 
     <div class="bottom-bar">
         <div class="bottom-flex">
