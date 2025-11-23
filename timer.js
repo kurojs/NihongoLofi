@@ -174,3 +174,18 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 });
 
 updateTimeDisplay();
+
+// Handle YouTube button click
+const openYoutubeBtn = document.getElementById('open-youtube');
+if (openYoutubeBtn) {
+    openYoutubeBtn.addEventListener('click', () => {
+        // Open in external browser
+        if (typeof require !== 'undefined') {
+            const { shell } = require('electron');
+            shell.openExternal('https://www.youtube.com/watch?v=d6f46ZUzJig');
+        } else {
+            // Fallback for web
+            window.open('https://www.youtube.com/watch?v=d6f46ZUzJig', '_blank');
+        }
+    });
+}
