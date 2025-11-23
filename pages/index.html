@@ -14,18 +14,6 @@
 
 <body>
 
-    <div class="window-controls">
-        <button class="window-button minimize-button" id="minimize-btn" title="Minimizar">
-            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <button class="window-button maximize-button" id="maximize-btn" title="Maximizar">
-            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
-        </button>
-        <button class="window-button close-button" id="close-btn" title="Cerrar">
-            <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-        </button>
-    </div>
-
     <header>
         <div class=header-bar>
             <img src="../img/heart.png" class="logo" alt="💖">
@@ -68,21 +56,37 @@
             </div>
         </div>
     </header>
+
+    <div class="window-controls">
+        <button class="window-button minimize-button" id="minimize-btn" title="Minimizar">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="window-button maximize-button" id="maximize-btn" title="Maximizar">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+        </button>
+        <button class="window-button close-button" id="close-btn" title="Cerrar">
+            <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+    </div>
     
     <div class="lofi-vid-container">
-        <div class="video-placeholder">
-            <div class="video-info">
-                <img src="../img/heart.png" class="video-icon" alt="💖">
-                <h2 class="video-title">Música Lofi Japonesa</h2>
-                <p class="video-description">El stream de YouTube no se puede embeber directamente en Electron</p>
-                <button class="open-youtube-btn" id="open-youtube">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
-                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
-                    </svg>
-                    Abrir Stream en Navegador
-                </button>
-            </div>
+        <iframe 
+            class="embedded-player"
+            src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&loop=1&playlist=jfKfPfyJRdk"
+            title="Lofi Player" 
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        <div class="video-controls">
+            <button class="open-live-btn" id="open-youtube" title="Abrir livestream en navegador">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Livestream</span>
+            </button>
         </div>
     </div>
 
