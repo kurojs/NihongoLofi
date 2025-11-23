@@ -37,7 +37,7 @@
         "AppImage"
       ],
       "category": "Utility",
-      "icon": "img/heart.png"
+      "icon": "celeste.png"
     },
     "files": [
       "main.js",
