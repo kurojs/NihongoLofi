@@ -1,6 +1,6 @@
-# 日本語 Lofi - Firefox Addon
+# 日本語 Lofi - Aplicación de Escritorio
 
-Extensión para Firefox que combina un temporizador Pomodoro con música lofi japonesa en vivo desde YouTube.
+Aplicación de escritorio que combina un temporizador Pomodoro con música lofi japonesa en vivo desde YouTube.
 
 ## Características
 
@@ -11,33 +11,44 @@ Extensión para Firefox que combina un temporizador Pomodoro con música lofi ja
 - 🔊 Alarma sonora configurable
 - ⚙️ Tiempos personalizables
 - 🎨 Interfaz moderna y responsiva
+- 🖥️ Aplicación de escritorio standalone (no requiere navegador)
 
 ## Instalación
 
-### Firefox
+### Linux (AppImage)
 
 #### Desde Release (Recomendado)
-1. Descarga el archivo `nihongo-lofi-1.0.0.xpi` de la sección de [Releases](../../releases)
-2. Abre Firefox y arrastra el archivo `.xpi` a la ventana del navegador
-3. Haz clic en "Añadir" cuando se te solicite confirmación
-4. ¡Listo! Verás el icono de corazón 💖 en la barra de herramientas
+1. Descarga el archivo `NihongoLofi-1.0.0-x86_64.AppImage` de la sección de [Releases](../../releases)
+2. Dale permisos de ejecución: `chmod +x NihongoLofi-1.0.0-x86_64.AppImage`
+3. Ejecuta el archivo: `./NihongoLofi-1.0.0-x86_64.AppImage`
+4. ¡Disfruta de la app!
 
-#### Instalación Manual (Desarrollo)
-1. Abre Firefox y ve a `about:debugging#/runtime/this-firefox`
-2. Haz clic en "Cargar complemento temporal..."
-3. Navega hasta la carpeta del proyecto y selecciona el archivo `manifest.json`
-4. El addon se cargará temporalmente (se eliminará al cerrar Firefox)
+#### Requisitos
+- Electron instalado en el sistema (o viene embebido en el AppImage)
+- Conexión a internet para el stream de YouTube
 
 ## Uso
 
-1. Haz clic en el icono de corazón 💖 en la barra de herramientas de Firefox
-2. Se abrirá una ventana emergente con:
+1. Abre la aplicación 日本語 Lofi
+2. Se abrirá una ventana con:
    - 🎥 Video de música lofi japonesa en vivo
    - ⏱️ Temporizador Pomodoro
    - ⚙️ Configuración (haz clic en el engranaje)
 3. Haz clic en el botón ▶️ para iniciar el temporizador
 4. Personaliza los tiempos de trabajo y descanso en la configuración
 5. ¡Disfruta de la música mientras trabajas o estudias!
+
+### Script de ejecución directo
+
+Si prefieres no usar el AppImage, puedes ejecutar directamente:
+```bash
+cd /home/kuro/Desktop/Work/NihongoLofi
+./nihongolofi.sh
+```
+O con Electron:
+```bash
+npm start
+```
 
 ## Configuración
 
@@ -48,11 +59,12 @@ Extensión para Firefox que combina un temporizador Pomodoro con música lofi ja
 
 ## Tecnologías
 
-- Firefox WebExtensions API (Manifest V2)
+- Electron (Aplicación de escritorio multiplataforma)
 - YouTube Embed Player API
 - HTML5 + CSS3 + JavaScript
 - Bootstrap 5.1.1
 - Google Fonts (Roboto)
+- LocalStorage para persistencia de configuración
 
 ## Licencia
 

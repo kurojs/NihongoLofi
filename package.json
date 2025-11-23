@@ -1,0 +1,51 @@
+{
+  "name": "nihongolofi",
+  "version": "1.0.0",
+  "description": "Temporizador Pomodoro con música lofi japonesa en vivo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:linux": "electron-builder --linux AppImage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kurojs/NihongoLofi.git"
+  },
+  "keywords": [
+    "pomodoro",
+    "lofi",
+    "timer",
+    "japanese",
+    "productivity"
+  ],
+  "author": "Kuro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kurojs/NihongoLofi/issues"
+  },
+  "homepage": "https://github.com/kurojs/NihongoLofi#readme",
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.kuro.nihongolofi",
+    "productName": "日本語 Lofi",
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility",
+      "icon": "img/heart.png"
+    },
+    "files": [
+      "main.js",
+      "timer.js",
+      "pages/**/*",
+      "img/**/*",
+      "sounds/**/*",
+      "package.json"
+    ]
+  }
+}

@@ -19,27 +19,28 @@ const pomodorosCompleted = document.querySelector('.pomodoros-completed');
 const enableNotifsToggle = document.querySelector('#enable-notifs');
 const enableAlarmsToggle = document.querySelector('#enable-alarms');
 
-if (browser && browser.storage) {
-    browser.storage.local.get(['workMinutes', 'breakMinutes', 'enableAlarms', 'enableNotifs']).then((result) => {
-        if (result.workMinutes) {
-            workMinutes = result.workMinutes;
+if (typeof localStorage !== 'undefined') {
+    const saved = localStorage.getItem('nihongolofi-settings');
+    if (saved) {
+        const settings = JSON.parse(saved);
+        if (settings.workMinutes) {
+            workMinutes = settings.workMinutes;
             document.querySelector('#work-length').value = workMinutes;
         }
-        if (result.breakMinutes) {
-            breakMinutes = result.breakMinutes;
+        if (settings.breakMinutes) {
+            breakMinutes = settings.breakMinutes;
             document.querySelector('#break-length').value = breakMinutes;
         }
-        if (result.enableAlarms !== undefined) {
-            enableAlarms = result.enableAlarms;
+        if (settings.enableAlarms !== undefined) {
+            enableAlarms = settings.enableAlarms;
             enableAlarmsToggle.checked = enableAlarms;
         }
-        if (result.enableNotifs !== undefined) {
-            enableNotifs = result.enableNotifs;
+        if (settings.enableNotifs !== undefined) {
+            enableNotifs = settings.enableNotifs;
             enableNotifsToggle.checked = enableNotifs;
         }
         timeLeft = workMinutes * 60;
-        updateTimeDisplay();
-    });
+    }
 }
 
 function updateTimeDisplay() {
@@ -62,12 +63,19 @@ function playAlarm() {
 }
 
 function showNotification(title, message) {
-    if (enableNotifs && browser && browser.notifications) {
-        browser.notifications.create({
-            type: 'basic',
-            iconUrl: browser.runtime.getURL('img/heart.png'),
-            title: title,
-            message: message
+    if (enableNotifs && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        new Notification(title, {
+            body: message,
+            icon: '../img/heart.png'
+        });
+    } else if (enableNotifs && typeof Notification !== 'undefined' && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                new Notification(title, {
+                    body: message,
+                    icon: '../img/heart.png'
+                });
+            }
         });
     }
 }
@@ -130,26 +138,38 @@ document.querySelector('#save-button').addEventListener('click', () => {
         timeLeft = isWorkTimer ? workMinutes * 60 : breakMinutes * 60;
         updateTimeDisplay();
         
-        if (browser && browser.storage) {
-            browser.storage.local.set({
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('nihongolofi-settings', JSON.stringify({
                 workMinutes: workMinutes,
-                breakMinutes: breakMinutes
-            });
+                breakMinutes: breakMinutes,
+                enableAlarms: enableAlarms,
+                enableNotifs: enableNotifs
+            }));
         }
     }
 });
 
 enableNotifsToggle.addEventListener('change', (e) => {
     enableNotifs = e.target.checked;
-    if (browser && browser.storage) {
-        browser.storage.local.set({ enableNotifs: enableNotifs });
+    if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('nihongolofi-settings', JSON.stringify({
+            workMinutes: workMinutes,
+            breakMinutes: breakMinutes,
+            enableAlarms: enableAlarms,
+            enableNotifs: enableNotifs
+        }));
     }
 });
 
 enableAlarmsToggle.addEventListener('change', (e) => {
     enableAlarms = e.target.checked;
-    if (browser && browser.storage) {
-        browser.storage.local.set({ enableAlarms: enableAlarms });
+    if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('nihongolofi-settings', JSON.stringify({
+            workMinutes: workMinutes,
+            breakMinutes: breakMinutes,
+            enableAlarms: enableAlarms,
+            enableNotifs: enableNotifs
+        }));
     }
 });
 

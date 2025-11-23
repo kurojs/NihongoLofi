@@ -7,3 +7,5 @@ node_modules/
 .vscode/
 .idea/
 web-ext-artifacts/
+dist/
+package-lock.json
