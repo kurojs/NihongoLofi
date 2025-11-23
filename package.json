@@ -30,8 +30,8 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.kuro.nihongolofi",
-    "productName": "日本語 Lofi",
+    "appId": "com.kuro.nihongo",
+    "productName": "日本語",
     "linux": {
       "target": [
         "AppImage"
@@ -45,7 +45,9 @@
       "pages/**/*",
       "img/**/*",
       "sounds/**/*",
-      "package.json"
+      "package.json",
+      "!pages/window-controls.js",
+      "!pages/window-controls.css"
     ]
   }
 }

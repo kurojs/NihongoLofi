@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -9,13 +9,17 @@ function createWindow() {
         height: 650,
         icon: path.join(__dirname, 'img', 'heart.png'),
         webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true,
-            webSecurity: true
+            nodeIntegration: true,
+            contextIsolation: false,
+            webSecurity: false
         },
+        frame: false,
+        transparent: true,
         resizable: true,
         autoHideMenuBar: true,
-        title: '日本語 Lofi'
+        title: '日本語',
+        backgroundColor: '#00000000',
+        hasShadow: true
     });
 
     mainWindow.loadFile('pages/index.html');
@@ -24,6 +28,24 @@ function createWindow() {
         mainWindow = null;
     });
 }
+
+ipcMain.on('window-close', () => {
+    if (mainWindow) mainWindow.close();
+});
+
+ipcMain.on('window-minimize', () => {
+    if (mainWindow) mainWindow.minimize();
+});
+
+ipcMain.on('window-maximize', () => {
+    if (mainWindow) {
+        if (mainWindow.isMaximized()) {
+            mainWindow.unmaximize();
+        } else {
+            mainWindow.maximize();
+        }
+    }
+});
 
 app.whenReady().then(createWindow);
 

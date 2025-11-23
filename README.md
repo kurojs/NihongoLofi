@@ -1,6 +1,6 @@
-# 日本語 Lofi - Aplicación de Escritorio
+# 日本語 - Aplicación de Escritorio
 
-Aplicación de escritorio que combina un temporizador Pomodoro con música lofi japonesa en vivo desde YouTube.
+Aplicación de escritorio minimalista que combina un temporizador Pomodoro con música lofi japonesa en vivo desde YouTube.
 
 ## Características
 
@@ -12,16 +12,18 @@ Aplicación de escritorio que combina un temporizador Pomodoro con música lofi 
 - ⚙️ Tiempos personalizables
 - 🎨 Interfaz moderna y responsiva
 - 🖥️ Aplicación de escritorio standalone (no requiere navegador)
+- 🪟 Ventana sin marco con transparencia y efecto blur (fondo semi-transparente negro)
+- 🎮 Controles de ventana personalizados estilo macOS
 
 ## Instalación
 
 ### Linux (AppImage)
 
 #### Desde Release (Recomendado)
-1. Descarga el archivo `NihongoLofi-1.0.0-x86_64.AppImage` de la sección de [Releases](../../releases)
-2. Dale permisos de ejecución: `chmod +x NihongoLofi-1.0.0-x86_64.AppImage`
-3. Ejecuta el archivo: `./NihongoLofi-1.0.0-x86_64.AppImage`
-4. ¡Disfruta de la app!
+1. Descarga el archivo `Nihongo-1.0.0-x86_64.AppImage` de la sección de [Releases](../../releases)
+2. Dale permisos de ejecución: `chmod +x Nihongo-1.0.0-x86_64.AppImage`
+3. Ejecuta el archivo: `./Nihongo-1.0.0-x86_64.AppImage`
+4. ¡Disfruta de la app con su interfaz transparente!
 
 #### Requisitos
 - Electron instalado en el sistema (o viene embebido en el AppImage)
@@ -29,14 +31,16 @@ Aplicación de escritorio que combina un temporizador Pomodoro con música lofi 
 
 ## Uso
 
-1. Abre la aplicación 日本語 Lofi
-2. Se abrirá una ventana con:
+1. Abre la aplicación 日本語
+2. Se abrirá una ventana sin marco con fondo transparente y blur que muestra:
    - 🎥 Video de música lofi japonesa en vivo
    - ⏱️ Temporizador Pomodoro
    - ⚙️ Configuración (haz clic en el engranaje)
 3. Haz clic en el botón ▶️ para iniciar el temporizador
 4. Personaliza los tiempos de trabajo y descanso en la configuración
-5. ¡Disfruta de la música mientras trabajas o estudias!
+5. Mueve la ventana arrastrando desde la barra superior
+6. Usa los botones de colores en la esquina superior derecha para cerrar/minimizar/maximizar
+7. ¡Disfruta de la música mientras trabajas o estudias!
 
 ### Script de ejecución directo
 

@@ -1,7 +1,7 @@
 :root {
     --mid-font-size:min(5.5vw,min(20px,13vh));
-    --bg-color: #333333;
-    --settings-color:#222222;
+    --bg-color: rgba(0, 0, 0, 0.79);
+    --settings-color: rgba(34, 34, 34, 0.85);
 }
  
 input[type=number]::-webkit-inner-spin-button,
@@ -11,7 +11,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
  
 html {
-    background: var(--bg-color);
+    background: transparent;
 }
  
 span {
@@ -19,7 +19,9 @@ span {
 }
  
 body {
-    background-color: 404247;
+    background: rgba(0, 0, 0, 0.79);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     overflow:hidden;
     display:flex;
     flex-direction: column;
@@ -31,8 +33,11 @@ body {
     left: 0px;
     top: 0px;
     padding:2vh 0 2vh 0;
+    -webkit-app-region: drag;
  
     background: var(--bg-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display:flex;
     align-items:center;
     justify-content: flex-start;
@@ -60,6 +65,8 @@ body {
 .settings {
     position: fixed;
     background: var(--settings-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     top: min(60px, min(25vw,15vh));
     height:53vh;
     left: 0;
@@ -84,6 +91,7 @@ body {
 .settings-toggle {
     background: transparent;
     border: 0;
+    -webkit-app-region: no-drag;
    
     margin-left:auto;
     padding-right:3vw;
@@ -293,6 +301,8 @@ label.enable-alarms {
 .bottom-bar {
     width:100vw;
     background-color: var(--bg-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     height:200px;
     display:inline-block
 }
