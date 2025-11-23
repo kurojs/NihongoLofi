@@ -175,17 +175,22 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 
 updateTimeDisplay();
 
-// Handle YouTube button click
+// Handle music button click - try different sources
 const openYoutubeBtn = document.getElementById('open-youtube');
 if (openYoutubeBtn) {
     openYoutubeBtn.addEventListener('click', () => {
-        // Open in external browser
+        // Try Lofi Girl on YouTube (less restricted)
+        const musicUrls = [
+            'https://www.youtube.com/watch?v=jfKfPfyJRdk', // Lofi Girl main
+            'https://chilledcow.com/', // Lofi Girl website
+            'https://www.youtube.com/watch?v=d6f46ZUzJig', // Japanese lofi live
+        ];
+        
         if (typeof require !== 'undefined') {
             const { shell } = require('electron');
-            shell.openExternal('https://www.youtube.com/watch?v=d6f46ZUzJig');
+            shell.openExternal(musicUrls[0]);
         } else {
-            // Fallback for web
-            window.open('https://www.youtube.com/watch?v=d6f46ZUzJig', '_blank');
+            window.open(musicUrls[0], '_blank');
         }
     });
 }
