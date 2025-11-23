@@ -4,10 +4,13 @@
 <head>
     <title>日本語</title>
     <meta charset="utf-8" />
+    <meta http-equiv="Permissions-Policy" content="autoplay=*, encrypted-media=*, accelerometer=*, gyroscope=*, picture-in-picture=*, clipboard-write=*, fullscreen=*">
+    <meta http-equiv="Content-Security-Policy" content="default-src * blob: data: 'unsafe-inline' 'unsafe-eval'; media-src * blob: data:; img-src * blob: data:; connect-src *;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./window-controls.css">
 </head>
@@ -16,20 +19,21 @@
 
     <header>
         <div class=header-bar>
-            <img src="../img/heart.png" class="logo" alt="💖">
+            <img src="../img/celeste.png" class="logo" alt="💖">
             <h1 class=title>日本語</h1>
         </div>
 
         <div class="settings">
             <div class="container">
-                <label class="work-length" for="work-length">Trabajo:</label>
-                <input class="work-length form-control" id="work-length" name="work-length" type=number value=25>
-                <label class="work-length" for="userWorkTime">minutos</label>
-                <label class="break-length" for="break-length">Descanso:</label>
-                <input class="break-length form-control" id="break-length" name="break-length" type=number value=5>
-                <label class="break-length" for="break-length">minutos</label>
-                <div class="button-container">
-                    <button id="save-button" class="btn btn-outline-secondary save-button">Guardar</button>
+                <div class="timer-input-group">
+                    <label class="work-length" for="work-length">Trabajo:</label>
+                    <input class="work-length form-control" id="work-length" name="work-length" type=number value=25>
+                    <label class="work-length" for="userWorkTime">minutos</label>
+                </div>
+                <div class="timer-input-group">
+                    <label class="break-length" for="break-length">Descanso:</label>
+                    <input class="break-length form-control" id="break-length" name="break-length" type=number value=5>
+                    <label class="break-length" for="break-length">minutos</label>
                 </div>
             </div>
 
@@ -49,6 +53,14 @@
                         <input class="form-check-input" type="checkbox" role="switch" id="enable-alarms" checked>
                     </div>
                 </div>
+                
+                <div class="stream-url-setting">
+                    <label for="stream-url">URL del Stream:</label>
+                    <small class="stream-url-hint">Por defecto: https://www.youtube.com/watch?v=d6f46ZUzJig</small>
+                    <input type="text" id="stream-url" placeholder="Deja vacío para usar el stream por defecto">
+                </div>
+                
+                <button class="save-all-settings" id="save-button">💾 Guardar Configuración</button>
             </div>
         </div>
     </header>
@@ -72,27 +84,29 @@
     <div class="lofi-vid-container">
         <div class="video-placeholder" id="video-placeholder">
             <div class="video-info">
-                <img src="../img/heart.png" class="video-icon" alt="💖">
-                <h2 class="video-title">Lofi Café ☕</h2>
-                <p class="video-description">Música relajante para estudiar y trabajar</p>
+                <img src="../img/celeste.png" class="video-icon" alt="💖">
+                <h2 class="video-title">日本語 Stream</h2>
+                <p class="video-description">Contenido en vivo para aprender y practicar</p>
                 <button class="open-youtube-btn" id="play-music">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <polygon points="10 8 16 12 10 16 10 8"/>
                     </svg>
-                    Reproducir Música
+                    Reproducir Stream
                 </button>
             </div>
         </div>
-        <iframe 
+        <video 
             id="music-player"
             class="music-player hidden"
-            src=""
-            title="Lofi Music Player" 
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
+            autoplay
+            controls
+            loop>
+        </video>
+        <div id="loading-message" class="loading-message hidden">
+            <div class="spinner"></div>
+            <p>Cargando stream...</p>
+        </div>
         <button class="back-button hidden" id="back-btn" title="Volver">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
