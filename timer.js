@@ -175,44 +175,32 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 
 updateTimeDisplay();
 
-// Handle music source switching
+// Handle play music button
 const musicPlayer = document.getElementById('music-player');
-const changeSourceBtn = document.getElementById('change-source');
-const sourceName = document.getElementById('source-name');
+const playMusicBtn = document.getElementById('play-music');
+const videoPlaceholder = document.getElementById('video-placeholder');
 
+// Try different embed sources (in order of compatibility)
 const musicSources = [
-    {
-        name: 'YouTube',
-        url: 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1'
-    },
-    {
-        name: 'SoundCloud',
-        url: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chillhop-music/sets/chillhop-essentials-spring-2023&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
-    },
-    {
-        name: 'Radio JP',
-        url: 'https://radio.garden/visit/tokyo/OKbJBjgP'
-    },
-    {
-        name: 'Poolside FM',
-        url: 'https://poolside.fm/'
-    }
+    // Twitch is usually more permissive with embeds
+    'https://player.twitch.tv/?channel=chillsynth&parent=localhost&muted=false&autoplay=true',
+    // SoundCloud embed
+    'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chilledcow/sets/lofi-hip-hop-radio&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+    // Radio Garden
+    'https://radio.garden/visit/tokyo/OKbJBjgP',
+    // Poolside FM
+    'https://poolside.fm/',
+    // YouTube as fallback
+    'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1'
 ];
 
-let currentSourceIndex = 0;
-
-if (changeSourceBtn && musicPlayer) {
-    changeSourceBtn.addEventListener('click', () => {
-        currentSourceIndex = (currentSourceIndex + 1) % musicSources.length;
-        const source = musicSources[currentSourceIndex];
+if (playMusicBtn && musicPlayer) {
+    playMusicBtn.addEventListener('click', () => {
+        // Hide placeholder
+        videoPlaceholder.style.display = 'none';
         
-        musicPlayer.src = source.url;
-        sourceName.textContent = source.name;
-        
-        // Visual feedback
-        changeSourceBtn.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            changeSourceBtn.style.transform = '';
-        }, 300);
+        // Show and load player with first source (Twitch)
+        musicPlayer.classList.remove('hidden');
+        musicPlayer.src = musicSources[0];
     });
 }

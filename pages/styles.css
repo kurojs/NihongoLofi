@@ -369,8 +369,87 @@ label.enable-alarms {
     height: 53vh;
     margin: 0;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     overflow: hidden;
+}
+
+.video-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 10, 15, 0.98) 0%, rgba(15, 10, 20, 0.98) 100%);
+}
+
+.video-info {
+    text-align: center;
+    padding: 40px;
+    max-width: 400px;
+}
+
+.video-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.3));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.video-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.video-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.open-youtube-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 28px;
+    background: rgba(30, 30, 35, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.open-youtube-btn:hover {
+    background: rgba(40, 40, 50, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.open-youtube-btn svg {
+    width: 24px;
+    height: 24px;
 }
 
 .music-player {
@@ -379,46 +458,13 @@ label.enable-alarms {
     border: none;
     display: block;
     background: rgba(10, 10, 15, 0.98);
-}
-
-.player-controls {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
-    z-index: 100;
-    display: flex;
-    gap: 10px;
+    top: 0;
+    left: 0;
 }
 
-.change-source-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: rgba(20, 20, 25, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: rgba(255, 255, 255, 0.9);
-    font-family: 'Roboto', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.change-source-btn:hover {
-    background: rgba(30, 30, 40, 0.98);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
-    color: #ffffff;
-}
-
-.change-source-btn svg {
-    width: 18px;
-    height: 18px;
+.music-player.hidden {
+    display: none;
 }
  
 .bottom-bar {
