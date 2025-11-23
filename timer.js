@@ -175,22 +175,44 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 
 updateTimeDisplay();
 
-// Handle music button click - try different sources
-const openYoutubeBtn = document.getElementById('open-youtube');
-if (openYoutubeBtn) {
-    openYoutubeBtn.addEventListener('click', () => {
-        // Try Lofi Girl on YouTube (less restricted)
-        const musicUrls = [
-            'https://www.youtube.com/watch?v=jfKfPfyJRdk', // Lofi Girl main
-            'https://chilledcow.com/', // Lofi Girl website
-            'https://www.youtube.com/watch?v=d6f46ZUzJig', // Japanese lofi live
-        ];
+// Handle music source switching
+const musicPlayer = document.getElementById('music-player');
+const changeSourceBtn = document.getElementById('change-source');
+const sourceName = document.getElementById('source-name');
+
+const musicSources = [
+    {
+        name: 'YouTube',
+        url: 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1'
+    },
+    {
+        name: 'SoundCloud',
+        url: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chillhop-music/sets/chillhop-essentials-spring-2023&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false'
+    },
+    {
+        name: 'Radio JP',
+        url: 'https://radio.garden/visit/tokyo/OKbJBjgP'
+    },
+    {
+        name: 'Poolside FM',
+        url: 'https://poolside.fm/'
+    }
+];
+
+let currentSourceIndex = 0;
+
+if (changeSourceBtn && musicPlayer) {
+    changeSourceBtn.addEventListener('click', () => {
+        currentSourceIndex = (currentSourceIndex + 1) % musicSources.length;
+        const source = musicSources[currentSourceIndex];
         
-        if (typeof require !== 'undefined') {
-            const { shell } = require('electron');
-            shell.openExternal(musicUrls[0]);
-        } else {
-            window.open(musicUrls[0], '_blank');
-        }
+        musicPlayer.src = source.url;
+        sourceName.textContent = source.name;
+        
+        // Visual feedback
+        changeSourceBtn.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            changeSourceBtn.style.transform = '';
+        }, 300);
     });
 }
