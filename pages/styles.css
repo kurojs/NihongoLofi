@@ -466,6 +466,42 @@ label.enable-alarms {
 .music-player.hidden {
     display: none;
 }
+
+.back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(20, 20, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+    background: rgba(30, 30, 40, 0.98);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transform: translateX(-2px);
+    color: #ffffff;
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.back-button.hidden {
+    display: none;
+}
  
 .bottom-bar {
     width:100vw;

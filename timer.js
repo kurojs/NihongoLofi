@@ -175,32 +175,51 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 
 updateTimeDisplay();
 
-// Handle play music button
+// Handle play music button and back button
 const musicPlayer = document.getElementById('music-player');
 const playMusicBtn = document.getElementById('play-music');
 const videoPlaceholder = document.getElementById('video-placeholder');
+const backBtn = document.getElementById('back-btn');
 
-// Try different embed sources (in order of compatibility)
+// Try different streaming sources (testing multiple platforms)
 const musicSources = [
-    // Twitch is usually more permissive with embeds
-    'https://player.twitch.tv/?channel=chillsynth&parent=localhost&muted=false&autoplay=true',
+    // Radio Garden - Radio japonesa (suele funcionar bien)
+    'https://radio.garden/visit/tokyo/OKbJBjgP',
+    // Soma FM - DoSE (Drone Zone)
+    'https://somafm.com/player/#/now-playing/dronezone',
+    // NTS Radio - Live stream
+    'https://www.nts.live/live',
     // SoundCloud embed
     'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chilledcow/sets/lofi-hip-hop-radio&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
-    // Radio Garden
-    'https://radio.garden/visit/tokyo/OKbJBjgP',
     // Poolside FM
     'https://poolside.fm/',
     // YouTube as fallback
     'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1'
 ];
 
-if (playMusicBtn && musicPlayer) {
+if (playMusicBtn && musicPlayer && backBtn) {
     playMusicBtn.addEventListener('click', () => {
         // Hide placeholder
         videoPlaceholder.style.display = 'none';
         
-        // Show and load player with first source (Twitch)
+        // Show player and back button
         musicPlayer.classList.remove('hidden');
+        backBtn.classList.remove('hidden');
+        
+        // Load first source (Radio Garden)
         musicPlayer.src = musicSources[0];
+    });
+    
+    // Back button handler
+    backBtn.addEventListener('click', () => {
+        // Stop player
+        musicPlayer.src = '';
+        
+        // Hide player and back button
+        musicPlayer.classList.add('hidden');
+        backBtn.classList.add('hidden');
+        
+        // Show placeholder again
+        videoPlaceholder.style.display = 'flex';
     });
 }
