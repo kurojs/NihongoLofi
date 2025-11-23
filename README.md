@@ -6,14 +6,16 @@ Aplicación de escritorio minimalista que combina un temporizador Pomodoro con m
 
 - 🍅 Temporizador Pomodoro (25 min trabajo / 5 min descanso)
 - 🎵 Transmisión en vivo de música lofi japonesa
-- 💖 Icono de corazón personalizado
+- 💖 Icono de corazón personalizado con animación de pulso
 - 🔔 Notificaciones de inicio/fin de sesiones
 - 🔊 Alarma sonora configurable
 - ⚙️ Tiempos personalizables
-- 🎨 Interfaz moderna y responsiva
+- 🎨 **Diseño profesional con gradientes oscuros (casi negro con tonos azul/morado sutiles)**
 - 🖥️ Aplicación de escritorio standalone (no requiere navegador)
-- 🪟 Ventana sin marco con transparencia y efecto blur (fondo semi-transparente negro)
-- 🎮 Controles de ventana personalizados estilo macOS
+- 🪟 Ventana sin marco con efecto glassmorphism
+- 🎮 Controles de ventana minimalistas con iconos SVG
+- ✨ Animaciones suaves y transiciones fluidas
+- 🌈 Acentos de color púrpura/azul en elementos interactivos
 
 ## Instalación
 
@@ -49,10 +51,16 @@ Si prefieres no usar el AppImage, puedes ejecutar directamente:
 cd /home/kuro/Desktop/Work/NihongoLofi
 ./nihongolofi.sh
 ```
-O con Electron:
-```bash
-npm start
-```
+
+## Diseño
+
+La aplicación cuenta con un diseño profesional y moderno:
+- **Paleta de colores**: Tonos oscuros casi negros (#0a0a0f a #0f0a14) con sutiles toques de azul y morado
+- **Efectos visuales**: Glassmorphism con blur de 40px, sombras suaves, y gradientes
+- **Tipografía**: Roboto con gradiente de color y text-shadow
+- **Iconografía**: SVG minimalistas en los controles de ventana
+- **Interactividad**: Hover states con transformaciones y glow effects
+- **Animaciones**: Pulso en el logo, transiciones suaves en todos los elementos
 
 ## Configuración
 

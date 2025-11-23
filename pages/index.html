@@ -15,18 +15,24 @@
 <body>
 
     <div class="window-controls">
-        <button class="window-button close-button" id="close-btn"></button>
-        <button class="window-button minimize-button" id="minimize-btn"></button>
-        <button class="window-button maximize-button" id="maximize-btn"></button>
+        <button class="window-button minimize-button" id="minimize-btn" title="Minimizar">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="window-button maximize-button" id="maximize-btn" title="Maximizar">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+        </button>
+        <button class="window-button close-button" id="close-btn" title="Cerrar">
+            <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
     </div>
 
     <header>
         <div class=header-bar>
-            <img src="/img/heart.png" class="logo">
+            <img src="../img/heart.png" class="logo" alt="💖">
             <h1 class=title>日本語</h1>
 
             <button class=settings-toggle>
-                <img src="./../img/gear.png" class="gear rotate" alt="Settings" draggable="false">
+                <img src="../img/gear.png" class="gear rotate" alt="Settings" draggable="false">
             </button>
         </div>
 
@@ -64,11 +70,11 @@
     </header>
     
     <iframe class="lofi-vid" width="397" height="226" 
-        src="https://www.youtube.com/embed/d6f46ZUzJig?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0"
+        src="https://www.youtube-nocookie.com/embed/d6f46ZUzJig?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&enablejsapi=1&origin=https://electron.app"
         title="YouTube video player" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen
-        referrerpolicy="strict-origin-when-cross-origin">
+        sandbox="allow-scripts allow-same-origin allow-presentation">
     </iframe>
 
     <div class="bottom-bar">
