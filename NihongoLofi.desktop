@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=日本語
-Comment=Temporizador Pomodoro con música lofi japonesa
-Exec=electron /home/kuro/Desktop/Work/NihongoLofi/main.js
-Icon=/home/kuro/Desktop/Work/NihongoLofi/img/heart.png
-Terminal=false
-Type=Application
-Categories=Utility;Audio;
