@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "日本語 Lofi",
+  "version": "1.0.0",
+  "description": "Temporizador de técnica Pomodoro con música lofi japonesa en vivo",
+  "author": "Kuro",
+  "icons": {
+    "48": "img/heart.png",
+    "96": "img/heart.png"
+  },
+  "browser_action": {
+    "default_icon": "img/heart.png",
+    "default_title": "日本語 Lofi"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "notifications"
+  ]
+}

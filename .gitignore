@@ -1,0 +1,9 @@
+*.xpi
+*.zip
+.DS_Store
+Thumbs.db
+node_modules/
+*.log
+.vscode/
+.idea/
+web-ext-artifacts/
