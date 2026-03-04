@@ -1,93 +1,188 @@
-# 日本語 - Aplicación de Escritorio
+# 日本語 - Desktop Application
 
-Aplicación de escritorio minimalista que combina un temporizador Pomodoro con música lofi japonesa en vivo desde YouTube.
+A minimalist desktop app that combines a Pomodoro timer with live Japanese lofi music from YouTube.
 
-## Características
+## Features
 
-- 🍅 Temporizador Pomodoro (25 min trabajo / 5 min descanso)
-- 🎵 Transmisión en vivo de música lofi japonesa
-- 💖 Icono de corazón personalizado con animación de pulso
-- 🔔 Notificaciones de inicio/fin de sesiones
-- 🔊 Alarma sonora configurable
-- ⚙️ Tiempos personalizables
-- 🎨 **Diseño profesional con gradientes oscuros (casi negro con tonos azul/morado sutiles)**
-- 🖥️ Aplicación de escritorio standalone (no requiere navegador)
-- 🪟 Ventana sin marco con efecto glassmorphism
-- 🎮 Controles de ventana minimalistas con iconos SVG
-- ✨ Animaciones suaves y transiciones fluidas
-- 🌈 Acentos de color púrpura/azul en elementos interactivos
+- 🍅 Pomodoro timer (25 min work / 5 min break, fully customizable)
+- 🎵 Live Japanese lofi music streaming via YouTube
+- 💖 Custom heart icon with pulse animation
+- 🔔 Session start/end desktop notifications
+- 🔊 Configurable sound alarm
+- ⚙️ Adjustable work and break durations
+- 🎨 Dark glassmorphism UI with deep dark tones and subtle blue/purple accents
+- 🖥️ Standalone desktop app — no browser needed
+- 🪟 Frameless window with frosted glass effect
+- 🎮 Minimal SVG window controls (close, minimize, maximize)
+- ✨ Smooth animations and fluid transitions
 
-## Instalación
+---
+
+## Installation
+
+### Windows
+
+#### From Release (Recommended)
+
+1. Download `NihongoLofi Setup 1.0.0.exe` from the [Releases](../../releases) page
+2. Run the installer and follow the setup wizard
+3. Launch **日本語** from your desktop or Start Menu
+4. Click ▶️ to load the stream and start your session
+
+#### Dependencies
+
+The app requires **yt-dlp** to extract the direct stream URL from YouTube. The binary is bundled inside the installer — no manual setup needed.
+
+> **Note:** If you're running from source (development mode), you must install yt-dlp manually. See [Running from Source](#running-from-source) below.
+
+---
 
 ### Linux (AppImage)
 
-#### Desde Release (Recomendado)
-1. Descarga el archivo `Nihongo-1.0.0-x86_64.AppImage` de la sección de [Releases](../../releases)
-2. Dale permisos de ejecución: `chmod +x Nihongo-1.0.0-x86_64.AppImage`
-3. Ejecuta el archivo: `./Nihongo-1.0.0-x86_64.AppImage`
-4. ¡Disfruta de la app con su interfaz transparente!
+#### From Release (Recommended)
 
-#### Requisitos
-- Electron instalado en el sistema (o viene embebido en el AppImage)
-- Conexión a internet para el stream de YouTube
+1. Download `Nihongo-1.0.0-x86_64.AppImage` from the [Releases](../../releases) page
+2. Make it executable:
+   ```bash
+   chmod +x Nihongo-1.0.0-x86_64.AppImage
+   ```
+3. Run it:
+   ```bash
+   ./Nihongo-1.0.0-x86_64.AppImage
+   ```
 
-## Uso
+#### Dependencies
 
-1. Abre la aplicación 日本語
-2. Se abrirá una ventana sin marco con fondo transparente y blur que muestra:
-   - 🎥 Video de música lofi japonesa en vivo
-   - ⏱️ Temporizador Pomodoro
-   - ⚙️ Configuración (haz clic en el engranaje)
-3. Haz clic en el botón ▶️ para iniciar el temporizador
-4. Personaliza los tiempos de trabajo y descanso en la configuración
-5. Mueve la ventana arrastrando desde la barra superior
-6. Usa los botones de colores en la esquina superior derecha para cerrar/minimizar/maximizar
-7. ¡Disfruta de la música mientras trabajas o estudias!
+- `yt-dlp` must be installed and available in your PATH:
+  ```bash
+  pip install yt-dlp
+  # or
+  sudo apt install yt-dlp
+  ```
+- Internet connection for the YouTube stream
 
-### Script de ejecución directo
+---
 
-Si prefieres no usar el AppImage, puedes ejecutar directamente:
-```bash
-cd /home/kuro/Desktop/Work/NihongoLofi
-./nihongolofi.sh
+## Running from Source
+
+### Prerequisites
+
+| Requirement | Version | Notes |
+|-------------|---------|-------|
+| Node.js | ≥ 18.x | [nodejs.org](https://nodejs.org) |
+| npm | ≥ 9.x | Comes with Node.js |
+| yt-dlp | Latest | See platform instructions below |
+
+### Install yt-dlp
+
+**Windows:**
+```powershell
+pip install yt-dlp
+# The binary will be at:
+# C:\Users\<you>\AppData\Roaming\Python\PythonXXX\Scripts\yt-dlp.exe
+# Make sure that path is in your system PATH, or copy yt-dlp.exe to bin\yt-dlp.exe inside the project
 ```
 
-## Diseño
+**Linux / macOS:**
+```bash
+pip install yt-dlp
+# or via package manager:
+sudo apt install yt-dlp       # Debian/Ubuntu
+brew install yt-dlp           # macOS
+```
 
-La aplicación cuenta con un diseño profesional y moderno:
-- **Paleta de colores**: Tonos oscuros casi negros (#0a0a0f a #0f0a14) con sutiles toques de azul y morado
-- **Efectos visuales**: Glassmorphism con blur de 40px, sombras suaves, y gradientes
-- **Tipografía**: Roboto con gradiente de color y text-shadow
-- **Iconografía**: SVG minimalistas en los controles de ventana
-- **Interactividad**: Hover states con transformaciones y glow effects
-- **Animaciones**: Pulso en el logo, transiciones suaves en todos los elementos
+### Setup & Run
 
-## Configuración
+```bash
+git clone https://github.com/kurojs/NihongoLofi.git
+cd NihongoLofi
+npm install
+npm start
+```
 
-- **Trabajo**: Duración de las sesiones de trabajo (predeterminado: 25 minutos)
-- **Descanso**: Duración de las sesiones de descanso (predeterminado: 5 minutos)
-- **Notificaciones**: Activa/desactiva las notificaciones del navegador
-- **Alarma**: Activa/desactiva el sonido de alarma
+### Build
 
-## Tecnologías
+**Windows (.exe installer):**
+```bash
+npm run build
+# Output: dist/日本語 Setup 1.0.0.exe
+```
 
-- Electron (Aplicación de escritorio multiplataforma)
-- YouTube Embed Player API
-- HTML5 + CSS3 + JavaScript
-- Bootstrap 5.1.1
+**Linux (AppImage):**
+```bash
+npm run build:linux
+# Output: dist/Nihongo-1.0.0-x86_64.AppImage
+```
+
+---
+
+## Usage
+
+1. Launch the **日本語** app
+2. A frameless window with transparent blur background will appear showing:
+   - 🎥 Live Japanese lofi video stream
+   - ⏱️ Pomodoro timer
+   - ⚙️ Settings panel (click the gear icon)
+3. Click **▶ Reproducir Stream** to load and start the music
+4. Press ▶️/⏸️ to start or pause the Pomodoro timer
+5. Customize work and break durations in the settings panel
+6. Drag the window from the top bar to reposition it
+7. Use the top-right buttons to minimize, maximize, or close
+
+> The Pomodoro timer only counts down while the stream is actively playing.
+
+---
+
+## Configuration
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Work duration | 25 min | Length of each focus session |
+| Break duration | 5 min | Length of each break session |
+| Notifications | On | Desktop notifications at session end |
+| Alarm | On | Sound alert at session end |
+| Stream URL | Default lofi stream | Any YouTube video or live URL |
+
+Settings are saved to `localStorage` and persist between sessions.
+
+---
+
+## Design
+
+- **Color palette:** Near-black dark tones (`#0a0a0f` → `#0f0a14`) with subtle blue and purple accents
+- **Visual effects:** Glassmorphism with 40px blur, soft shadows, and gradient overlays
+- **Typography:** Roboto with color gradient and text-shadow
+- **Iconography:** Minimal SVG window controls
+- **Interactivity:** Hover states with transforms and glow effects
+- **Animations:** Logo pulse, smooth transitions on all interactive elements
+
+---
+
+## Tech Stack
+
+- [Electron](https://www.electronjs.org/) — cross-platform desktop runtime
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — YouTube stream URL extraction
+- [hls.js](https://github.com/video-dev/hls.js/) — HLS stream playback
+- HTML5 + CSS3 + Vanilla JavaScript
+- [Bootstrap 5.1.1](https://getbootstrap.com/)
 - Google Fonts (Roboto)
-- LocalStorage para persistencia de configuración
+- Web Notifications API
+- localStorage for settings persistence
 
-## Licencia
+---
+
+## License
 
 MIT License
 
-## Créditos
+---
 
-- Música lofi: [YouTube Live Stream](https://www.youtube.com/live/d6f46ZUzJig)
-- Icono de corazón: Custom
-- Inspirado en la extensión Lofidoro de Jonathan Polina
+## Credits
 
-## Autor
+- Lofi music: [YouTube Live Stream](https://www.youtube.com/live/d6f46ZUzJig)
+- Heart icon: Custom
+- Inspired by the [Lofidoro](https://github.com/jonathanpolina/lofidoro) extension by Jonathan Polina
 
-Kuro
+## Author
+
+[Kuro](https://github.com/kurojs)

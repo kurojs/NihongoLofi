@@ -39,6 +39,17 @@
       "category": "Utility",
       "icon": "celeste.png"
     },
+    "win": {
+      "target": ["nsis"],
+      "icon": "celeste.png"
+    },
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin/",
+        "filter": ["**/*"]
+      }
+    ],
     "files": [
       "main.js",
       "timer.js",

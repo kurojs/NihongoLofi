@@ -1,6 +1,27 @@
 const { app, BrowserWindow, ipcMain, session } = require('electron');
 const path = require('path');
 const { exec } = require('child_process');
+const fs = require('fs');
+
+// Resolve yt-dlp binary path: bundled first, then system PATH
+function getYtDlpPath() {
+    const isWindows = process.platform === 'win32';
+    const binaryName = isWindows ? 'yt-dlp.exe' : 'yt-dlp';
+
+    // When running packaged (asar), resources are in process.resourcesPath
+    const resourcesBin = path.join(
+        app.isPackaged ? process.resourcesPath : __dirname,
+        'bin',
+        binaryName
+    );
+
+    if (fs.existsSync(resourcesBin)) {
+        return `"${resourcesBin}"`;
+    }
+
+    // Fallback: system PATH
+    return binaryName;
+}
 
 let mainWindow;
 let youtubeBrowserView;
@@ -34,9 +55,14 @@ function createWindow() {
     
     // Setup session for YouTube with proper headers
     const ses = mainWindow.webContents.session;
+
+    // Use platform-appropriate User-Agent
+    const userAgent = process.platform === 'win32'
+        ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
     
     ses.webRequest.onBeforeSendHeaders((details, callback) => {
-        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+        details.requestHeaders['User-Agent'] = userAgent;
         details.requestHeaders['Referer'] = 'https://www.youtube.com/';
         details.requestHeaders['Origin'] = 'https://www.youtube.com';
         callback({ requestHeaders: details.requestHeaders });
@@ -78,10 +104,12 @@ ipcMain.on('window-maximize', () => {
 // Get direct stream URL from YouTube using yt-dlp
 ipcMain.handle('get-youtube-stream', async (event, youtubeUrl) => {
     return new Promise((resolve, reject) => {
-        // Increase timeout to 30 seconds for slow connections
-        const command = `yt-dlp -f "best[height<=720]" --get-url "${youtubeUrl}"`;
+        const ytDlpBin = getYtDlpPath();
+        // Use python-m fallback and proper Windows-safe quoting
+        const command = `${ytDlpBin} -f "best[height<=720]" --get-url --no-playlist "${youtubeUrl}"`;
         
         console.log('Running yt-dlp for:', youtubeUrl);
+        console.log('Command:', command);
         
         exec(command, { timeout: 30000, maxBuffer: 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
@@ -91,7 +119,15 @@ ipcMain.handle('get-youtube-stream', async (event, youtubeUrl) => {
                 return;
             }
             
-            const streamUrl = stdout.trim();
+            // yt-dlp may return multiple URLs (video+audio), take the first valid one
+            const lines = stdout.trim().split('\n').filter(l => l.startsWith('http'));
+            const streamUrl = lines[0] || stdout.trim();
+            
+            if (!streamUrl || !streamUrl.startsWith('http')) {
+                reject(new Error('No valid stream URL returned by yt-dlp'));
+                return;
+            }
+            
             console.log('Stream URL obtained:', streamUrl.substring(0, 100) + '...');
             resolve(streamUrl);
         });
