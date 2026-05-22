@@ -68,7 +68,7 @@ jobs:
         with:
           files: |
             artifacts/**/*.AppImage
-            artifacts/**/*.exe
+            artifacts/**/*Setup*.exe
             artifacts/**/*.dmg
           tag_name: ${{ github.ref_name }}
           name: NihongoLofi ${{ github.ref_name }}
