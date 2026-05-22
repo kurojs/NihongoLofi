@@ -43,7 +43,7 @@ function createWindow() {
         transparent: true,
         resizable: true,
         autoHideMenuBar: true,
-        title: '日本語',
+        title: 'NihongoLofi',
         backgroundColor: '#00000000',
         hasShadow: true
     });

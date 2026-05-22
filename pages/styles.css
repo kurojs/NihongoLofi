@@ -606,3 +606,25 @@ body::before {
 @media (max-height: 300px) {
     .settings { justify-content: center; }
 }
+
+#toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 12px 24px;
+    color: #fff;
+    font-size: 14px;
+    font-family: var(--font);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#toast.show {
+    opacity: 1;
+}

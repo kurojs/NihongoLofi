@@ -65,7 +65,7 @@ function updateProgressBar() {
         progressBar.style.width = `${progress}%`;
     }
     if (pomodorosCompleted) {
-        pomodorosCompleted.textContent = `Pomodoros completados: ${pomodorosFinished}`;
+        pomodorosCompleted.textContent = `Pomodoros completed: ${pomodorosFinished}`;
     }
 }
 
@@ -103,9 +103,9 @@ function switchTimer() {
 
     if (isWorkTimer) {
         pomodorosFinished++;
-        showNotification('Descanso terminado', 'Es hora de trabajar');
+        showNotification('Break over', 'Time to focus');
     } else {
-        showNotification('Trabajo terminado', 'Es hora de descansar');
+        showNotification('Work session done', 'Time to rest');
     }
 
     playAlarm();
@@ -167,7 +167,7 @@ document.querySelector('#save-button').addEventListener('click', () => {
         }
         updateTimeDisplay();
     } else {
-        alert('Los valores de tiempo deben ser mayores a 0');
+        showToast('Values must be greater than 0');
         return;
     }
 
@@ -180,12 +180,12 @@ document.querySelector('#save-button').addEventListener('click', () => {
         streamUrl = newUrl;
         localStorage.setItem('streamUrl', streamUrl);
     } else {
-        alert('Ingresa una URL valida de YouTube');
+        showToast('Invalid YouTube URL');
         return;
     }
 
     saveSettings();
-    alert('Configuracion guardada');
+    showToast('Settings saved');
 });
 
 enableNotifsToggle.addEventListener('change', (e) => {
@@ -195,6 +195,20 @@ enableNotifsToggle.addEventListener('change', (e) => {
 enableAlarmsToggle.addEventListener('change', (e) => {
     enableAlarms = e.target.checked;
 });
+
+function showToast(msg) {
+    const el = document.getElementById('toast') || (() => {
+        const t = document.createElement('div');
+        t.id = 'toast';
+        document.body.appendChild(t);
+        return t;
+    })();
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    el.classList.add('show');
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 2000);
+}
 
 updateTimeDisplay();
 
@@ -241,7 +255,7 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
 
                     hls.on(Hls.Events.ERROR, (event, data) => {
                         if (data.fatal) {
-                            loadingMessage.innerHTML = '<p>Error reproduciendo stream</p>';
+                            loadingMessage.innerHTML = '<p>Stream playback error</p>';
                             loadingMessage.classList.remove('hidden');
                             isVideoPlaying = false;
                         }
@@ -269,7 +283,7 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                 buttonImg.alt = 'Pause';
             }
         } catch (error) {
-            loadingMessage.innerHTML = '<p>Error cargando stream</p><p>Intenta de nuevo</p>';
+            loadingMessage.innerHTML = '<p>Error loading stream</p><p>Try again</p>';
             isVideoPlaying = false;
 
             setTimeout(() => {

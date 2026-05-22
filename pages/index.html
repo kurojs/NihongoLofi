@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>日本語</title>
+    <title>NihongoLofi</title>
     <meta charset="utf-8" />
     <meta http-equiv="Permissions-Policy" content="autoplay=*, encrypted-media=*, accelerometer=*, gyroscope=*, picture-in-picture=*, clipboard-write=*, fullscreen=*">
     <meta http-equiv="Content-Security-Policy" content="default-src * blob: data: 'unsafe-inline' 'unsafe-eval'; media-src * blob: data:; img-src * blob: data:; connect-src *;">
@@ -17,27 +17,27 @@
 <body>
     <header>
         <div class=header-bar>
-            <img src="../img/celeste.png" class="logo" alt="Kotoba">
-            <h1 class=title>日本語</h1>
+            <img src="../img/celeste.png" class="logo" alt="Logo">
+            <h1 class=title>NihongoLofi</h1>
         </div>
 
         <div class="settings">
             <div class="settings-inner">
                 <div class="timer-input-group">
-                    <label for="work-length">Trabajo:</label>
+                    <label for="work-length">Work:</label>
                     <input id="work-length" type=number value=25 min=1>
-                    <label>minutos</label>
+                    <label>min</label>
                 </div>
                 <div class="timer-input-group">
-                    <label for="break-length">Descanso:</label>
+                    <label for="break-length">Break:</label>
                     <input id="break-length" type=number value=5 min=1>
-                    <label>minutos</label>
+                    <label>min</label>
                 </div>
 
                 <hr/>
 
                 <div class="toggle-row">
-                    <label for="enable-notifs">Notificaciones</label>
+                    <label for="enable-notifs">Notifications</label>
                     <label class="switch">
                         <input type="checkbox" id="enable-notifs" checked>
                         <span class="slider"></span>
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="toggle-row">
-                    <label for="enable-alarms">Alarma</label>
+                    <label for="enable-alarms">Alarm</label>
                     <label class="switch">
                         <input type="checkbox" id="enable-alarms" checked>
                         <span class="slider"></span>
@@ -53,12 +53,12 @@
                 </div>
 
                 <div class="stream-url-setting">
-                    <label for="stream-url">URL del Stream</label>
-                    <small>Por defecto: https://www.youtube.com/watch?v=d6f46ZUzJig</small>
-                    <input type="text" id="stream-url" placeholder="Deja vacío para usar el stream por defecto">
+                    <label for="stream-url">Stream URL</label>
+                    <small>Default: https://www.youtube.com/watch?v=d6f46ZUzJig</small>
+                    <input type="text" id="stream-url" placeholder="Leave empty for default stream">
                 </div>
 
-                <button class="save-btn" id="save-button">Guardar Configuracion</button>
+                <button class="save-btn" id="save-button">Save Settings</button>
             </div>
         </div>
     </header>
@@ -68,13 +68,13 @@
     </button>
 
     <div class="window-controls">
-        <button class="window-button minimize-button" id="minimize-btn" title="Minimizar">
+        <button class="window-button minimize-button" id="minimize-btn" title="Minimize">
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <button class="window-button maximize-button" id="maximize-btn" title="Maximizar">
+        <button class="window-button maximize-button" id="maximize-btn" title="Maximize">
             <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
         </button>
-        <button class="window-button close-button" id="close-btn" title="Cerrar">
+        <button class="window-button close-button" id="close-btn" title="Close">
             <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
         </button>
     </div>
@@ -82,15 +82,15 @@
     <div class="lofi-vid-container">
         <div class="video-placeholder" id="video-placeholder">
             <div class="video-info">
-                <img src="../img/celeste.png" class="video-icon" alt="Kotoba">
-                <h2 class="video-title">Nihongo Stream</h2>
+                <img src="../img/celeste.png" class="video-icon" alt="Logo">
+                <h2 class="video-title">Nihongo Lofi</h2>
                 <p class="video-description">Live Japanese lofi music to focus and study</p>
                 <button class="play-btn" id="play-music">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <polygon points="10 8 16 12 10 16 10 8"/>
                     </svg>
-                    Reproducir Stream
+                    Play Stream
                 </button>
             </div>
         </div>
@@ -99,10 +99,10 @@
 
         <div id="loading-message" class="loading-message hidden">
             <div class="spinner"></div>
-            <p>Cargando stream...</p>
+            <p>Loading stream...</p>
         </div>
 
-        <button class="back-btn hidden" id="back-btn" title="Volver">
+        <button class="back-btn hidden" id="back-btn" title="Back">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
