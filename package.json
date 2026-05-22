@@ -2,7 +2,7 @@
   "name": "nihongolofi",
   "version": "1.0.0",
   "description": "Pomodoro timer with live Japanese lofi music",
-  "main": "main.js",
+  "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
@@ -37,15 +37,15 @@
     "linux": {
       "target": ["AppImage"],
       "category": "Utility",
-      "icon": "celeste.png"
+      "icon": "build/icon.png"
     },
     "win": {
       "target": ["nsis"],
-      "icon": "celeste.png"
+      "icon": "build/icon.png"
     },
     "mac": {
       "target": ["dmg"],
-      "icon": "celeste.png",
+      "icon": "build/icon.png",
       "category": "public.app-category.productivity"
     },
     "extraResources": [
@@ -56,12 +56,9 @@
       }
     ],
     "files": [
-      "main.js",
-      "timer.js",
-      "pages/**/*",
-      "img/**/*",
-      "sounds/**/*",
-      "celeste.png",
+      "src/**/*",
+      "build/icon.png",
+      "bin/**/*",
       "package.json"
     ]
   }

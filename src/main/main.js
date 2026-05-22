@@ -3,14 +3,15 @@ const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
 
+const projectRoot = path.join(__dirname, '..', '..');
+
 // Resolve yt-dlp binary path: bundled first, then system PATH
 function getYtDlpPath() {
     const isWindows = process.platform === 'win32';
     const binaryName = isWindows ? 'yt-dlp.exe' : 'yt-dlp';
 
-    // When running packaged (asar), resources are in process.resourcesPath
     const resourcesBin = path.join(
-        app.isPackaged ? process.resourcesPath : __dirname,
+        app.isPackaged ? process.resourcesPath : projectRoot,
         'bin',
         binaryName
     );
@@ -30,7 +31,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 400,
         height: 650,
-        icon: path.join(__dirname, 'img', 'celeste.png'),
+        icon: path.join(projectRoot, 'build', 'icon.png'),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -50,7 +51,7 @@ function createWindow() {
         hasShadow: true
     });
 
-    mainWindow.loadFile('pages/index.html');
+    mainWindow.loadFile(path.join(projectRoot, 'src', 'renderer', 'index.html'));
     
     // Setup session for YouTube with proper headers
     const ses = mainWindow.webContents.session;

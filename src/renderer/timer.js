@@ -87,11 +87,11 @@ function showNotification(title, message) {
     if (!enableNotifs || typeof Notification === 'undefined') return;
 
     if (Notification.permission === 'granted') {
-        new Notification(title, { body: message, icon: '../img/celeste.png' });
+        new Notification(title, { body: message, icon: './img/celeste.png' });
     } else if (Notification.permission !== 'denied') {
         Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
-                new Notification(title, { body: message, icon: '../img/celeste.png' });
+                new Notification(title, { body: message, icon: './img/celeste.png' });
             }
         });
     }
@@ -129,10 +129,10 @@ pauseButton.addEventListener('click', () => {
     isPaused = !isPaused;
     const buttonImg = pauseButton.querySelector('img');
     if (isPaused) {
-        buttonImg.src = '../img/playbutton.png';
+        buttonImg.src = './img/playbutton.png';
         buttonImg.alt = 'Play';
     } else {
-        buttonImg.src = '../img/pauseButton.png';
+        buttonImg.src = './img/pauseButton.png';
         buttonImg.alt = 'Pause';
     }
 });
@@ -249,7 +249,7 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                         isVideoPlaying = true;
                         isPaused = false;
                         const buttonImg = pauseButton.querySelector('img');
-                        buttonImg.src = '../img/pauseButton.png';
+                        buttonImg.src = './img/pauseButton.png';
                         buttonImg.alt = 'Pause';
                     });
 
@@ -268,7 +268,7 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                     isVideoPlaying = true;
                     isPaused = false;
                     const buttonImg = pauseButton.querySelector('img');
-                    buttonImg.src = '../img/pauseButton.png';
+                    buttonImg.src = './img/pauseButton.png';
                     buttonImg.alt = 'Pause';
                 } else {
                     throw new Error('HLS not supported');
@@ -279,7 +279,7 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                 isVideoPlaying = true;
                 isPaused = false;
                 const buttonImg = pauseButton.querySelector('img');
-                buttonImg.src = '../img/pauseButton.png';
+                buttonImg.src = './img/pauseButton.png';
                 buttonImg.alt = 'Pause';
             }
         } catch (error) {
