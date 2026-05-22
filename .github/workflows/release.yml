@@ -75,9 +75,13 @@ jobs:
             Pomodoro timer with live Japanese lofi music.
 
             ### Downloads
-            - **Linux**: `.AppImage` — chmod +x and run
-            - **Windows**: `.exe` — NSIS installer
-            - **macOS**: `.dmg` — drag to Applications
+            - **Linux**: `NihongoLofi-*.AppImage` — chmod +x and run
+            - **Windows**: `NihongoLofi Setup *.exe` — NSIS installer
+            - **macOS**: `NihongoLofi-*.dmg` — drag to Applications
+
+            ### Requirements
+            - **Linux / macOS**: `yt-dlp` must be installed on your PATH
+            - **Windows**: yt-dlp is bundled — no manual setup required
           draft: false
           prerelease: false
         env:

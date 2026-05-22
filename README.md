@@ -21,7 +21,7 @@
 - Desktop notifications and sound alarm at session end
 - Configurable work/break durations, alarms, and stream URL
 - Dark glassmorphism UI with frameless window
-- Cross-platform: Windows (exe) and Linux (AppImage / AUR)
+- Cross-platform: Windows (exe), macOS (dmg), Linux (AppImage / AUR)
 
 ## Installation
 
@@ -57,6 +57,16 @@ Download `NihongoLofi Setup *.exe` from the [releases page](https://github.com/k
 
 yt-dlp is bundled inside the installer — no manual setup needed.
 
+### macOS
+
+Download `NihongoLofi-*.dmg` from the [releases page](https://github.com/kurojs/NihongoLofi/releases), open it, and drag to Applications.
+
+Requires `yt-dlp` on your PATH:
+
+```bash
+brew install yt-dlp
+```
+
 ### From Source
 
 Requirements: Node.js >= 18, npm >= 9, yt-dlp.
@@ -71,11 +81,14 @@ npm start
 Build:
 
 ```bash
-# Windows installer
-npm run build
-
 # Linux AppImage
 npm run build:linux
+
+# Windows installer
+npm run build:win
+
+# macOS disk image
+npm run build:mac
 ```
 
 ## Usage
