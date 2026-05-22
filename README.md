@@ -1,6 +1,18 @@
-# NihongoLofi
+<p align="center">
+  <img src="https://i.imgur.com/UeEbjaP.png" width="96" height="96" alt="NihongoLofi">
+</p>
 
-Pomodoro timer with live Japanese lofi music from YouTube. Built with Electron.
+<h1 align="center">NihongoLofi</h1>
+
+<p align="center">Pomodoro timer with live Japanese lofi music from YouTube. Built with Electron.</p>
+
+## Showcase
+
+<p align="center">
+  <img src="https://i.imgur.com/3GJntSO.png" width="32%" alt="Player view">
+  <img src="https://i.imgur.com/hmlyE3o.png" width="32%" alt="Timer view">
+  <img src="https://i.imgur.com/tOKcYQB.png" width="32%" alt="Settings panel">
+</p>
 
 ## Features
 
@@ -69,7 +81,7 @@ npm run build:linux
 ## Usage
 
 1. Launch the app.
-2. Click "Reproducir Stream" to load the lofi stream.
+2. Click "Play Stream" to load the lofi stream.
 3. Press the pause button to start / pause the Pomodoro timer.
 4. Click the gear icon to adjust work/break durations, toggle notifications and alarms, or change the stream URL.
 5. Drag the window by the top bar. Use the top-right controls to close, minimize, or maximize.
