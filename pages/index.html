@@ -8,65 +8,63 @@
     <meta http-equiv="Content-Security-Policy" content="default-src * blob: data: 'unsafe-inline' 'unsafe-eval'; media-src * blob: data:; img-src * blob: data:; connect-src *;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./window-controls.css">
 </head>
 
 <body>
-
     <header>
         <div class=header-bar>
-            <img src="../img/celeste.png" class="logo" alt="💖">
+            <img src="../img/celeste.png" class="logo" alt="Kotoba">
             <h1 class=title>日本語</h1>
         </div>
 
         <div class="settings">
-            <div class="container">
+            <div class="settings-inner">
                 <div class="timer-input-group">
-                    <label class="work-length" for="work-length">Trabajo:</label>
-                    <input class="work-length form-control" id="work-length" name="work-length" type=number value=25>
-                    <label class="work-length" for="userWorkTime">minutos</label>
+                    <label for="work-length">Trabajo:</label>
+                    <input id="work-length" type=number value=25 min=1>
+                    <label>minutos</label>
                 </div>
                 <div class="timer-input-group">
-                    <label class="break-length" for="break-length">Descanso:</label>
-                    <input class="break-length form-control" id="break-length" name="break-length" type=number value=5>
-                    <label class="break-length" for="break-length">minutos</label>
+                    <label for="break-length">Descanso:</label>
+                    <input id="break-length" type=number value=5 min=1>
+                    <label>minutos</label>
                 </div>
-            </div>
 
-            <hr id="hor-line"/>
-            
-            <div class="enable-container">
-                <div class="flexbox">
-                    <label class="enable-notifs" for="enable-notifs">Notificaciones: </label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="enable-notifs" checked>
-                    </div>
+                <hr/>
+
+                <div class="toggle-row">
+                    <label for="enable-notifs">Notificaciones</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-notifs" checked>
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                
-                <div class="flexbox">
-                    <label class="enable-alarms" for="enable-alarms">Alarma:</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="enable-alarms" checked>
-                    </div>
+
+                <div class="toggle-row">
+                    <label for="enable-alarms">Alarma</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enable-alarms" checked>
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                
+
                 <div class="stream-url-setting">
-                    <label for="stream-url">URL del Stream:</label>
-                    <small class="stream-url-hint">Por defecto: https://www.youtube.com/watch?v=d6f46ZUzJig</small>
+                    <label for="stream-url">URL del Stream</label>
+                    <small>Por defecto: https://www.youtube.com/watch?v=d6f46ZUzJig</small>
                     <input type="text" id="stream-url" placeholder="Deja vacío para usar el stream por defecto">
                 </div>
-                
-                <button class="save-all-settings" id="save-button">💾 Guardar Configuración</button>
+
+                <button class="save-btn" id="save-button">Guardar Configuracion</button>
             </div>
         </div>
     </header>
 
     <button class="settings-toggle">
-        <img src="../img/gear.png" class="gear rotate" alt="Settings" draggable="false">
+        <img src="../img/gear.png" class="gear" alt="Settings">
     </button>
 
     <div class="window-controls">
@@ -80,14 +78,14 @@
             <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
         </button>
     </div>
-    
+
     <div class="lofi-vid-container">
         <div class="video-placeholder" id="video-placeholder">
             <div class="video-info">
-                <img src="../img/celeste.png" class="video-icon" alt="💖">
-                <h2 class="video-title">日本語 Stream</h2>
-                <p class="video-description">Contenido en vivo para aprender y practicar</p>
-                <button class="open-youtube-btn" id="play-music">
+                <img src="../img/celeste.png" class="video-icon" alt="Kotoba">
+                <h2 class="video-title">Nihongo Stream</h2>
+                <p class="video-description">Live Japanese lofi music to focus and study</p>
+                <button class="play-btn" id="play-music">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <polygon points="10 8 16 12 10 16 10 8"/>
@@ -96,18 +94,15 @@
                 </button>
             </div>
         </div>
-        <video 
-            id="music-player"
-            class="music-player hidden"
-            autoplay
-            controls
-            loop>
-        </video>
+
+        <video id="music-player" class="music-player hidden" autoplay controls loop></video>
+
         <div id="loading-message" class="loading-message hidden">
             <div class="spinner"></div>
             <p>Cargando stream...</p>
         </div>
-        <button class="back-button hidden" id="back-btn" title="Volver">
+
+        <button class="back-btn hidden" id="back-btn" title="Volver">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
@@ -122,15 +117,15 @@
                 <div class="progress-bar"></div>
             </div>
 
-            <button class="pause-button btn btn-outline-danger">
-                <img src="./../img/pauseButton.png" class="button-content" alt="Pause">
+            <button class="pause-btn" id="pause-btn">
+                <img src="./../img/pauseButton.png" class="pause-icon" alt="Pause">
             </button>
         </div>
 
         <div class="pomodoros-completed"></div>
     </div>
+
     <script src="./window-controls.js"></script>
     <script src="../timer.js"></script>
 </body>
-
 </html>

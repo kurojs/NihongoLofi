@@ -12,7 +12,10 @@ let isVideoPlaying = false;
 let enableAlarms = true;
 let enableNotifs = true;
 
-const pauseButton = document.querySelector('.pause-button');
+const defaultStreamUrl = 'https://www.youtube.com/watch?v=d6f46ZUzJig';
+let streamUrl = localStorage.getItem('streamUrl') || defaultStreamUrl;
+
+const pauseButton = document.querySelector('.pause-btn');
 const settingsToggle = document.querySelector('.settings-toggle');
 const timeDisplay = document.querySelector('.time-display');
 const progressBar = document.querySelector('.progress-bar');
@@ -44,6 +47,17 @@ if (typeof localStorage !== 'undefined') {
     }
 }
 
+// Initialize stream URL input
+const streamUrlInput = document.getElementById('stream-url');
+if (streamUrlInput) {
+    if (streamUrl === defaultStreamUrl) {
+        streamUrlInput.placeholder = defaultStreamUrl;
+        streamUrlInput.value = '';
+    } else {
+        streamUrlInput.value = streamUrl;
+    }
+}
+
 function updateProgressBar() {
     const totalTime = isWorkTimer ? workMinutes * 60 : breakMinutes * 60;
     const progress = ((totalTime - timeLeft) / totalTime) * 100;
@@ -51,7 +65,7 @@ function updateProgressBar() {
         progressBar.style.width = `${progress}%`;
     }
     if (pomodorosCompleted) {
-        pomodorosCompleted.textContent = pomodorosFinished;
+        pomodorosCompleted.textContent = `Pomodoros completados: ${pomodorosFinished}`;
     }
 }
 
@@ -60,12 +74,6 @@ function updateTimeDisplay() {
     const seconds = timeLeft % 60;
     timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     updateProgressBar();
-    
-    const totalTime = isWorkTimer ? workMinutes * 60 : breakMinutes * 60;
-    const percentage = ((totalTime - timeLeft) / totalTime) * 100;
-    progressBar.style.width = `${percentage}%`;
-    
-    pomodorosCompleted.textContent = `Pomodoros completados: ${pomodorosFinished}`;
 }
 
 function playAlarm() {
@@ -76,18 +84,14 @@ function playAlarm() {
 }
 
 function showNotification(title, message) {
-    if (enableNotifs && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-        new Notification(title, {
-            body: message,
-            icon: '../img/heart.png'
-        });
-    } else if (enableNotifs && typeof Notification !== 'undefined' && Notification.permission !== 'denied') {
+    if (!enableNotifs || typeof Notification === 'undefined') return;
+
+    if (Notification.permission === 'granted') {
+        new Notification(title, { body: message, icon: '../img/celeste.png' });
+    } else if (Notification.permission !== 'denied') {
         Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
-                new Notification(title, {
-                    body: message,
-                    icon: '../img/heart.png'
-                });
+                new Notification(title, { body: message, icon: '../img/celeste.png' });
             }
         });
     }
@@ -96,39 +100,33 @@ function showNotification(title, message) {
 function switchTimer() {
     isWorkTimer = !isWorkTimer;
     timeLeft = isWorkTimer ? workMinutes * 60 : breakMinutes * 60;
-    
+
     if (isWorkTimer) {
         pomodorosFinished++;
-        showNotification('¡Descanso terminado!', '¡Es hora de trabajar!');
+        showNotification('Descanso terminado', 'Es hora de trabajar');
     } else {
-        showNotification('¡Trabajo terminado!', '¡Es hora de descansar!');
+        showNotification('Trabajo terminado', 'Es hora de descansar');
     }
-    
+
     playAlarm();
     updateTimeDisplay();
 }
 
 function tick() {
-    // Timer solo avanza si el video está reproduciéndose
     if (!isPaused && isVideoPlaying) {
         timeLeft--;
-        
         if (timeLeft <= 0) {
             switchTimer();
             return;
         }
-        
         updateTimeDisplay();
-        updateProgressBar();
     }
 }
 
-// Start timer
 let timerInterval = setInterval(tick, 1000);
 
 pauseButton.addEventListener('click', () => {
     isPaused = !isPaused;
-    
     const buttonImg = pauseButton.querySelector('img');
     if (isPaused) {
         buttonImg.src = '../img/playbutton.png';
@@ -160,24 +158,19 @@ document.querySelector('#save-button').addEventListener('click', () => {
     const newWorkMinutes = parseInt(document.querySelector('#work-length').value);
     const newBreakMinutes = parseInt(document.querySelector('#break-length').value);
     const newUrl = document.getElementById('stream-url').value.trim();
-    
-    // Validate timer values
+
     if (newWorkMinutes > 0 && newBreakMinutes > 0) {
         workMinutes = newWorkMinutes;
         breakMinutes = newBreakMinutes;
-        
-        // Reset timer if currently paused
         if (isPaused) {
             timeLeft = isWorkTimer ? workMinutes * 60 : breakMinutes * 60;
         }
-        
         updateTimeDisplay();
     } else {
-        alert('⚠️ Los valores de tiempo deben ser mayores a 0');
+        alert('Los valores de tiempo deben ser mayores a 0');
         return;
     }
-    
-    // Save stream URL
+
     if (newUrl === '') {
         streamUrl = defaultStreamUrl;
         localStorage.removeItem('streamUrl');
@@ -186,13 +179,13 @@ document.querySelector('#save-button').addEventListener('click', () => {
     } else if (newUrl.includes('youtube.com') || newUrl.includes('youtu.be')) {
         streamUrl = newUrl;
         localStorage.setItem('streamUrl', streamUrl);
-    } else if (newUrl !== '') {
-        alert('⚠️ Por favor ingresa una URL válida de YouTube');
+    } else {
+        alert('Ingresa una URL valida de YouTube');
         return;
     }
-    
+
     saveSettings();
-    alert('✅ Configuración guardada correctamente');
+    alert('Configuracion guardada');
 });
 
 enableNotifsToggle.addEventListener('change', (e) => {
@@ -205,56 +198,27 @@ enableAlarmsToggle.addEventListener('change', (e) => {
 
 updateTimeDisplay();
 
-// Handle play music button and back button
+// Stream player
 const musicPlayer = document.getElementById('music-player');
 const playMusicBtn = document.getElementById('play-music');
 const videoPlaceholder = document.getElementById('video-placeholder');
 const backBtn = document.getElementById('back-btn');
-
-// Default YouTube stream - can be changed in settings
-const defaultStreamUrl = 'https://www.youtube.com/watch?v=d6f46ZUzJig';
-let streamUrl = localStorage.getItem('streamUrl') || defaultStreamUrl;
-
-// Initialize stream URL input
-const streamUrlInput = document.getElementById('stream-url');
-if (streamUrlInput) {
-    // Show current URL or default placeholder
-    if (streamUrl === defaultStreamUrl) {
-        streamUrlInput.placeholder = defaultStreamUrl;
-        streamUrlInput.value = '';
-    } else {
-        streamUrlInput.value = streamUrl;
-    }
-}
-// Use ipcRenderer from window-controls.js (already loaded)
 const loadingMessage = document.getElementById('loading-message');
 
 if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
     playMusicBtn.addEventListener('click', async () => {
-        // Hide placeholder
         videoPlaceholder.style.display = 'none';
-        
-        // Show loading
         loadingMessage.classList.remove('hidden');
         backBtn.classList.remove('hidden');
-        
+
         try {
-            console.log('Getting stream URL for:', streamUrl);
-            
-            // Get direct stream URL using yt-dlp
             const { ipcRenderer } = require('electron');
             const directStreamUrl = await ipcRenderer.invoke('get-youtube-stream', streamUrl);
-            
-            console.log('Got stream URL, loading player...');
-            
-            // Hide loading, show player
+
             loadingMessage.classList.add('hidden');
             musicPlayer.classList.remove('hidden');
-            
-            // Check if HLS stream (m3u8)
+
             if (directStreamUrl.includes('.m3u8')) {
-                console.log('HLS stream detected, using hls.js');
-                
                 if (Hls.isSupported()) {
                     const hls = new Hls({
                         debug: false,
@@ -262,12 +226,11 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                         lowLatencyMode: true,
                         backBufferLength: 90
                     });
-                    
+
                     hls.loadSource(directStreamUrl);
                     hls.attachMedia(musicPlayer);
-                    
+
                     hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                        console.log('HLS manifest parsed, playing...');
                         musicPlayer.play();
                         isVideoPlaying = true;
                         isPaused = false;
@@ -275,20 +238,17 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                         buttonImg.src = '../img/pauseButton.png';
                         buttonImg.alt = 'Pause';
                     });
-                    
+
                     hls.on(Hls.Events.ERROR, (event, data) => {
-                        console.error('HLS error:', data);
                         if (data.fatal) {
                             loadingMessage.innerHTML = '<p>Error reproduciendo stream</p>';
                             loadingMessage.classList.remove('hidden');
                             isVideoPlaying = false;
                         }
                     });
-                    
-                    // Store hls instance for cleanup
+
                     musicPlayer.hlsInstance = hls;
                 } else if (musicPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                    // Native HLS support (Safari, some browsers)
                     musicPlayer.src = directStreamUrl;
                     await musicPlayer.play();
                     isVideoPlaying = true;
@@ -300,7 +260,6 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                     throw new Error('HLS not supported');
                 }
             } else {
-                // Regular video source
                 musicPlayer.src = directStreamUrl;
                 await musicPlayer.play();
                 isVideoPlaying = true;
@@ -309,12 +268,10 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
                 buttonImg.src = '../img/pauseButton.png';
                 buttonImg.alt = 'Pause';
             }
-            
         } catch (error) {
-            console.error('Error loading stream:', error);
-            loadingMessage.innerHTML = '<p>Error cargando stream :(</p><p>Intenta de nuevo</p>';
+            loadingMessage.innerHTML = '<p>Error cargando stream</p><p>Intenta de nuevo</p>';
             isVideoPlaying = false;
-            
+
             setTimeout(() => {
                 loadingMessage.classList.add('hidden');
                 videoPlaceholder.style.display = 'flex';
@@ -322,27 +279,20 @@ if (playMusicBtn && musicPlayer && backBtn && loadingMessage) {
             }, 3000);
         }
     });
-    
-    // Back button handler
+
     backBtn.addEventListener('click', () => {
-        // Stop player and timer
         musicPlayer.pause();
         isVideoPlaying = false;
-        
-        // Destroy HLS instance if exists
+
         if (musicPlayer.hlsInstance) {
             musicPlayer.hlsInstance.destroy();
             musicPlayer.hlsInstance = null;
         }
-        
+
         musicPlayer.src = '';
-        
-        // Hide player and back button
         musicPlayer.classList.add('hidden');
         backBtn.classList.add('hidden');
         loadingMessage.classList.add('hidden');
-        
-        // Show placeholder again
         videoPlaceholder.style.display = 'flex';
     });
 }

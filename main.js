@@ -50,9 +50,6 @@ function createWindow() {
 
     mainWindow.loadFile('pages/index.html');
     
-    // Open DevTools in development (comment out for production)
-    // mainWindow.webContents.openDevTools();
-    
     // Setup session for YouTube with proper headers
     const ses = mainWindow.webContents.session;
 
@@ -105,30 +102,22 @@ ipcMain.on('window-maximize', () => {
 ipcMain.handle('get-youtube-stream', async (event, youtubeUrl) => {
     return new Promise((resolve, reject) => {
         const ytDlpBin = getYtDlpPath();
-        // Use python-m fallback and proper Windows-safe quoting
         const command = `${ytDlpBin} -f "best[height<=720]" --get-url --no-playlist "${youtubeUrl}"`;
-        
-        console.log('Running yt-dlp for:', youtubeUrl);
-        console.log('Command:', command);
-        
+
         exec(command, { timeout: 30000, maxBuffer: 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
-                console.error('yt-dlp error:', error);
-                console.error('stderr:', stderr);
                 reject(error);
                 return;
             }
-            
-            // yt-dlp may return multiple URLs (video+audio), take the first valid one
+
             const lines = stdout.trim().split('\n').filter(l => l.startsWith('http'));
             const streamUrl = lines[0] || stdout.trim();
-            
+
             if (!streamUrl || !streamUrl.startsWith('http')) {
                 reject(new Error('No valid stream URL returned by yt-dlp'));
                 return;
             }
-            
-            console.log('Stream URL obtained:', streamUrl.substring(0, 100) + '...');
+
             resolve(streamUrl);
         });
     });
@@ -141,9 +130,6 @@ app.commandLine.appendSwitch('enable-features', 'SharedArrayBuffer');
 app.commandLine.appendSwitch('ignore-certificate-errors');
 app.commandLine.appendSwitch('disable-web-security');
 app.commandLine.appendSwitch('allow-running-insecure-content');
-
-// Disable hardware acceleration if causing issues
-// app.disableHardwareAcceleration();
 
 app.whenReady().then(createWindow);
 
