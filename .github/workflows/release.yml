@@ -11,44 +11,73 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            build-cmd: npm run build:linux
+            artifact: dist/*.AppImage
+          - os: windows-latest
+            build-cmd: npm run build:win
+            artifact: dist/*.exe
+          - os: macos-latest
+            build-cmd: npm run build:mac
+            artifact: dist/*.dmg
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm install
-      
-      - name: Build AppImage
-        run: npm run build:linux
+
+      - name: Build
+        run: ${{ matrix.build-cmd }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Get version
         id: version
+        shell: bash
         run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-      
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nihongolofi-${{ steps.version.outputs.VERSION }}-${{ runner.os }}
+          path: dist/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/*.AppImage
+          files: artifacts/**/*
           tag_name: ${{ github.ref_name }}
-          name: Nihongo ${{ github.ref_name }}
+          name: NihongoLofi ${{ github.ref_name }}
           body: |
-            ## 日本語 Stream Timer v${{ steps.version.outputs.VERSION }}
-            
-            Aplicación de escritorio para estudiar japonés con streams en vivo.
-            
-            ### Instalación
-            1. Descarga el archivo `.AppImage`
-            2. Dale permisos de ejecución: `chmod +x Nihongo-*.AppImage`
-            3. Ejecuta: `./Nihongo-*.AppImage`
+            ## NihongoLofi v${{ github.ref_name }}
+
+            Pomodoro timer with live Japanese lofi music.
+
+            ### Downloads
+            - **Linux**: `.AppImage` — chmod +x and run
+            - **Windows**: `.exe` — NSIS installer
+            - **macOS**: `.dmg` — drag to Applications
           draft: false
           prerelease: false
         env:

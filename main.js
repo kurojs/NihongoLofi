@@ -24,9 +24,9 @@ function getYtDlpPath() {
 }
 
 let mainWindow;
-let youtubeBrowserView;
 
 function createWindow() {
+    const isMac = process.platform === 'darwin';
     mainWindow = new BrowserWindow({
         width: 400,
         height: 650,
@@ -39,8 +39,10 @@ function createWindow() {
             allowRunningInsecureContent: true,
             autoplayPolicy: 'no-user-gesture-required'
         },
-        frame: false,
-        transparent: true,
+        ...(isMac
+            ? { titleBarStyle: 'hidden', transparent: true }
+            : { frame: false, transparent: true }
+        ),
         resizable: true,
         autoHideMenuBar: true,
         title: 'NihongoLofi',
@@ -53,9 +55,10 @@ function createWindow() {
     // Setup session for YouTube with proper headers
     const ses = mainWindow.webContents.session;
 
-    // Use platform-appropriate User-Agent
     const userAgent = process.platform === 'win32'
         ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        : process.platform === 'darwin'
+        ? 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
     
     ses.webRequest.onBeforeSendHeaders((details, callback) => {
